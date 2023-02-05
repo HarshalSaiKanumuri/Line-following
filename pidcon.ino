@@ -2,7 +2,7 @@
 #include <Wire.h>
 #define Kp 3
 #define Ki 0.6
-#define Kd 0
+#define Kd 0.01
 double integral = 0;
 double lastInput = 0;
 
@@ -71,7 +71,7 @@ void loop() {
   sensor6Value = map(sensor6Value,  531, 4095,100,0);
 
 
-  double Weighted_Average = ((sensor1Value * -10) + (sensor2Value * -5 ) + (sensor3Value * 0 ) + (sensor4Value * 5 ) + (sensor5Value  * 10)) / 5 ;
+  double Weighted_Average = ((sensor1Value * -30) + (sensor2Value * -10 ) + (sensor3Value * 0 ) + (sensor4Value * 10 ) + (sensor5Value  * 30)) / (sensor1Value + sensor2Value + sensor3Value + sensor4Value + sensor5Value) ;
   Weighted_Average = map(Weighted_Average,-150,150,150,-150);
   Output = PID(0, Weighted_Average);
   Output = map(Output,-96,76,175,75);
